@@ -1,21 +1,11 @@
 import { CardTask } from "@/components/apk/card-task";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { PlusIcon } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 const HomeScreen: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col px-5 py-5 ">
-      {/* Header */}
-      <header className="flex justify-between items-center mb-6 bg-white shadow-md rounded-lg px-5 py-4">
-        <Image src="/focusi.svg" alt="Logo" width={150} height={50} priority />
-
-        <div className="flex items-center gap-3">
-          <span>Mário Salvador</span>
-          <div className="size-10 rounded-full bg-slate-200"></div>
-        </div>
-      </header>
+    <div className="bg-gray-100 min-h-screen flex flex-col px-4  ">
 
       <div className="w-full flex justify-end mb-5">
         <div className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md">Meta semanal: 60% completa</div>
