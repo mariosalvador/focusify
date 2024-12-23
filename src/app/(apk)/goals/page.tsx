@@ -1,4 +1,5 @@
 import { CardTask } from "@/components/apk/card-task";
+import { DialogNewGoals } from "@/components/apk/dialogNewGoals";
 import React from "react";
 
 const GoalsScreen: React.FC = () => {
@@ -7,11 +8,14 @@ const GoalsScreen: React.FC = () => {
       {/* Header */}
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Minhas Metas</h1>
-        <button
-          className="bg-green-600/85 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
-        >
-          + Nova Meta
-        </button>
+
+        <DialogNewGoals>
+          <button
+            className="bg-green-600/90 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+          >
+            + Nova Meta
+          </button>
+        </DialogNewGoals>
       </header>
 
       {/* Goals List */}
@@ -37,7 +41,7 @@ const GoalsScreen: React.FC = () => {
         <div className="space-y-4">
           <CardTask tittle="Aprender React" progress={100} finished="20 de Novembro" />
 
-          <CardTask tittle="Construir um aplicativo web" progress={100} finished="20 de Dezembro" />  
+          <CardTask tittle="Construir um aplicativo web" progress={100} finished="20 de Dezembro" />
 
           <div className="p-4 bg-green-100 rounded-lg shadow-sm">
             <div className="flex justify-between items-center">
