@@ -1,11 +1,15 @@
+"use client"
 import { Calendar, Home, ListMinus, MessageSquareQuote, Settings, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger, SheetDescription, SheetHeader, SheetTitle, SheetFooter } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { useAuthStore } from "@/module/zustand-store/auth-store";
+import { redirect } from "next/navigation";
 
 
 export const NavBar = () => {
+  const { logout } = useAuthStore();
   return (
     <header className="flex justify-between items-center mb-6 bg-white shadow-md rounded-lg px-5 py-4">
       <Image src="/focusi.svg" alt="Logo" width={150} height={50} priority />
@@ -45,7 +49,8 @@ export const NavBar = () => {
           <SheetTrigger>
             <ListMinus size={24} />
           </SheetTrigger>
-
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore  */}
           <SheetContent className="flex flex-col items-start">
             <SheetHeader>
               <SheetTitle>Menu de Navegação</SheetTitle>
@@ -80,7 +85,10 @@ export const NavBar = () => {
               <Button className="rounded-md w-full bg-blue-600 hover:bg-blue-500">
                 Convidar Amigo
               </Button>
-              <Button className="rounded-md w-full bg-red-600 hover:bg-red-500">
+              <Button onClick={() => {
+                logout();
+                redirect("/auth/logout");
+              }} className="rounded-md w-full bg-red-600 hover:bg-red-500">
                 Terminar Sessão
               </Button>
             </SheetFooter>

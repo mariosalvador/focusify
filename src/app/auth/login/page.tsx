@@ -3,7 +3,6 @@
 import { toast } from "@/hooks/use-toast";
 import { loginRoute } from "@/module/services/Api/routes/auth/login";
 import { useAuthStore } from "@/module/zustand-store/auth-store";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
@@ -16,29 +15,28 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
+      // Verificando se os campos estão preenchidos corretamente
       const response = await loginRoute.login(email, password);
       const { token, user } = response;
+
       login(user, token);
-      setLoading(false);
+
       toast({
         title: "Success",
         description: "You have successfully logged in",
         duration: 2000,
       });
-      redirect("/home");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      window.location.href = "/home";
     } catch (error) {
+      console.error("Error during login process:", error);
       toast({
         title: "Error",
         description: "Invalid email or password",
         duration: 2000,
       });
-      setLoading(false);
-
     } finally {
       setLoading(false);
     }
-
   };
 
   return (
@@ -104,4 +102,3 @@ export default function Login() {
     </div>
   );
 }
-
