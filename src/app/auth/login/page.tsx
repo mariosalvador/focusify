@@ -21,7 +21,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-muted mx-4">
+    <div className="flex h-screen items-center justify-center bg-muted px-4">
       <div className="w-full max-w-md p-6 bg-background rounded-lg shadow-md">
         <h1 className="text-3xl font-semibold text-center text-primary mb-6">
           Welcome to Focusify
