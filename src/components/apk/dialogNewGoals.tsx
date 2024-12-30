@@ -52,7 +52,8 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const handleSubTaskChange = useCallback(
-    (id?: string, key: keyof SubTask, value: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (id: string | undefined, key: keyof SubTask, value: any) => {
       setCreateGoal((prev) => ({
         ...prev,
         subTasks: prev.subTasks.map((task) =>
@@ -64,6 +65,7 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
   );
 
   const handleGoalChange = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (key: keyof GoalToCreate, value: any) => {
       setCreateGoal((prev) => ({ ...prev, [key]: value }));
     },
