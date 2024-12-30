@@ -1,5 +1,8 @@
 "use client";
 
+import { toast } from "@/hooks/use-toast";
+import { _axios } from "@/lib/axios";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Signup() {
@@ -9,19 +12,58 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formData = {
+    name: fullName,
+    email,
+    phone_number: phone,
+    password,
+  };
+
+  const resetAllInputs = () => {
+    setFullName("");
+    setEmail("");
+    setPhone("");
+    setPassword("");
+    setConfirmPassword("");
+    setAcceptedTerms(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
+      setLoading(false);
       return;
     }
     if (!acceptedTerms) {
       alert("You must accept the terms and conditions to proceed.");
+      setLoading(false);
       return;
     }
-    // Lógica de cadastro aqui
-    console.log("Full Name:", fullName, "Email:", email, "Phone:", phone, "Password:", password);
+
+    try {
+      const response = await _axios.post("/user/create", formData);
+      console.log("Response:", response.data);
+      setLoading(false);
+      toast({
+        variant: "default",
+        title: "Success",
+        description: "User created successfully!",
+      })
+      resetAllInputs();
+      redirect("/auth/login");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error creating user: ",
+      })
+      setLoading(false);
+    }
   };
 
   return (
@@ -119,7 +161,7 @@ export default function Signup() {
                 Terms and Conditions
               </a>{" "}
               and{" "}
-              <a href="/privacy" className="text-primary hover:underline">
+              <a href="/privacy-policy" className="text-primary hover:underline">
                 Privacy Policy
               </a>.
             </label>
@@ -127,8 +169,9 @@ export default function Signup() {
           <button
             type="submit"
             className="w-full py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:blue-500 focus:ring-offset-2"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? "Loading..." : "Sign Up"}
           </button>
         </form>
         <div className="mt-6 text-center text-sm text-muted-foreground">
@@ -143,3 +186,4 @@ export default function Signup() {
     </div>
   );
 }
+

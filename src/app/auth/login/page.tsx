@@ -5,11 +5,19 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     // Lógica de autenticação aqui
-    console.log("Email:", email, "Password:", password);
+    try {
+      console.log("Email:", email, "Password:", password);
+      // Simulate authentication delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,9 +60,10 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="w-full  py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            className="w-full py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Processing..." : "Sign In"}
           </button>
         </form>
         <div className="mt-6 text-center text-sm text-muted-foreground">
@@ -74,3 +83,4 @@ export default function Login() {
     </div>
   );
 }
+
