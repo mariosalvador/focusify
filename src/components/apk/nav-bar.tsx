@@ -33,7 +33,7 @@ function getUserName(fullName: string) {
 }
 
 export const NavBar = () => {
-  const { logout, user } = useAuthStore();
+  const { user } = useAuthStore();
   const pathname = usePathname();
   const userData = {
     id: user?.id,
@@ -99,7 +99,7 @@ export const NavBar = () => {
               <Button
                 variant="ghost"
                 className="justify-start text-left"
-                onClick={() => console.log("Ir para o perfil")}
+                onClick={() => redirect("/profile")}
               >
                 Perfil
               </Button>
@@ -107,8 +107,7 @@ export const NavBar = () => {
                 variant="ghost"
                 className="justify-start text-left text-red-600"
                 onClick={() => {
-                  logout();
-                  console.log("Usuário deslogado");
+                 redirect("/auth/logout");
                 }}
               >
                 Logout
