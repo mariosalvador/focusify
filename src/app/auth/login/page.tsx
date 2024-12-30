@@ -1,23 +1,44 @@
 "use client";
 
+import { toast } from "@/hooks/use-toast";
+import { loginRoute } from "@/module/services/Api/routes/auth/login";
+import { useAuthStore } from "@/module/zustand-store/auth-store";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { login } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Lógica de autenticação aqui
     try {
-      console.log("Email:", email, "Password:", password);
-      // Simulate authentication delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await loginRoute.login(email, password);
+      const { token, user } = response;
+      login(user, token);
+      setLoading(false);
+      toast({
+        title: "Success",
+        description: "You have successfully logged in",
+        duration: 2000,
+      });
+      redirect("/home");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Invalid email or password",
+        duration: 2000,
+      });
+      setLoading(false);
+
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
@@ -32,7 +53,7 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-foreground">
-              Email 
+              Email
             </label>
             <input
               id="email"
