@@ -7,7 +7,7 @@ const GoalsScreen: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col p-6">
       {/* Header */}
-      <header className="flex justify-between items-center mb-6">
+      <header className="flex flex-col items-start sm:flex-row sm:items-center justify-between  mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Minhas Metas</h1>
 
         <DialogNewGoals>

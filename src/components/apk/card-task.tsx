@@ -18,14 +18,15 @@ export function CardTask({ title: tittle, progress, startDate, endDate }: ICardT
   return (
     <Alert>
       {/* <Terminal className="h-4 w-4" /> */}
-      <AlertTitle className="font-medium flex justify-between items-center">
-        <div className="flex items-center gap-2 max-w-[350px]">
+      <AlertTitle className="font-medium flex flex-col justify-between items-start sm:flex-row sm:items-center gap-2">
+        <div className="flex justify-between w-full items-center gap-2 sm:justify-start sm:max-w-[350px]">
           <CircleDashed className="h-5 w-5 cursor-pointer text-zinc-500" />
           <h2 className="text-md truncate font-semibold text-zinc-800 max-w-[200px]">{tittle}</h2>
+          <CornerUpLeft className="h-5 w-5 cursor-pointer block  sm:hidden" />
         </div>
 
-        <div className="bg-red- flex flex-col items-end h-full w-[250px]">
-          <CornerUpLeft className="h-5 w-5 cursor-pointer" />
+        <div className=" flex flex-col w-full items-end h-full sm:w-[250px]">
+          <CornerUpLeft className="h-5 w-5 cursor-pointer hidden sm:block" />
           <Progress value={progress} className="h-2 mt-2 w-full text-white" />
         </div>
       </AlertTitle>
