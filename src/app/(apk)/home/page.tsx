@@ -1,7 +1,7 @@
-import { CardTask } from "@/components/apk/card-task";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { PlusIcon } from "lucide-react";
 import React from "react";
+import { ActiveGoals } from "../goals/activeGoals";
 
 const HomeScreen: React.FC = () => {
   return (
@@ -29,18 +29,11 @@ const HomeScreen: React.FC = () => {
 
       {/* Task List */}
 
-      <section className="bg-white shadow-md rounded-lg p-4 flex-1">
-        <h2 className="text-lg font-semibold text-gray-800">Suas Tarefas</h2>
-        <div className="mt-4 space-y-4">
-
-          <CardTask tittle="Planejar semana" progress={50} finished="Hoje" />
-
-          <CardTask tittle="Estudar React" progress={30} finished="Amanhã" />
-
-          <CardTask tittle=" Praticar judo" progress={30} finished="Amanhã" />
-
-          <p className="w-full text-center text-gray-400 font-medium text-sm cursor-pointer hover:text-gray-600 hover:underline">Ver mais</p>
-        </div>
+      <section className="flex-1 flex flex-col justify-between bg-white shadow-md rounded-lg p-4">
+        <ActiveGoals />
+        <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+          ver todas
+        </p>
       </section>
 
       {/* Tips Section */}
@@ -58,7 +51,7 @@ const HomeScreen: React.FC = () => {
         className="fixed bottom-6 right-6 bg-blue-700 text-white p-4 rounded-full size-14 shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
         aria-label="Adicionar nova tarefa"
       >
-       <PlusIcon className="w-6 h-6"/>
+        <PlusIcon className="w-6 h-6" />
       </button>
     </div>
   );

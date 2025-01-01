@@ -15,6 +15,29 @@ interface GoalToCreate {
   subTasks: SubTask[];
 }
 
+interface GoalByUserId {
+  id: string;
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  status: "PENDING" | "COMPLETED" | "CANCELED";
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 interface SubTask {
   id?: string;
   title: string;

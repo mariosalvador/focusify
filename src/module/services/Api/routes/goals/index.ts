@@ -8,9 +8,11 @@ class GoalsRoute {
   }
 
   async getGoalsUserid(userId: string) {
-    const response = await _axios.get<Goal[]>(`"/goal/getByUserId/${userId}`);
-    return response.data;
+    const response = await _axios.get<GoalByUserId[]>(`/goal/getByUserId/${userId}`);
+    return response;
   }
 }
 
 export const goalsRoute = new GoalsRoute();
+
+
