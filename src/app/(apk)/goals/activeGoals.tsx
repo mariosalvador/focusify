@@ -37,15 +37,27 @@ export const ActiveGoals = () => {
       <div className="space-y-4">
         {
           getTasks.data!.length > 0 ? (
-            getTasks.data?.map((task) => (
-              <CardTask
-                key={task.id}
-                title={task.title}
-                progress={50}
-                startDate={formatDate(new Date(task.startDate), "dd" + "' de, '" + "MMMM" + " Y")}
-                endDate={formatDate(new Date(task.endDate), "dd" + "' de, '" + "MMMM" + " Y")}
-              />
-            ))
+            getTasks.data!.length >= 3 ? (
+              getTasks.data!.slice(0, 3).map((goal) => (
+                <CardTask
+                  key={goal.id}
+                  title={goal.title}
+                  progress={50}
+                  startDate={formatDate(new Date(goal.startDate), "dd/MM/yyyy")}
+                  endDate={formatDate(new Date(goal.endDate), "dd/MM/yyyy")}
+                />
+              ))
+            ) : (
+              getTasks.data!.map((goal) => (
+                <CardTask
+                  key={goal.id}
+                  title={goal.title}
+                  progress={50}
+                  startDate={formatDate(new Date(goal.startDate), "dd/MM/yyyy")}
+                  endDate={formatDate(new Date(goal.endDate), "dd/MM/yyyy")}
+                />
+              ))
+            )
           ) : (
             <p className="text-center text-md text-gray-500">Não há  metas ativas no momento.</p>
           )
