@@ -1,12 +1,18 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const LandingPage: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header Section */}
       <header className="bg-gradient-to-r from-green-500 to-blue-500 text-white py-6">
-        <div className="container mx-auto flex justify-between items-center px-6">
-          <h1 className="text-3xl font-bold">Focusify</h1>
+        <div className="container flex-col md:flex-row mx-auto flex justify-between items-center px-6">
+          <Image src="/focusiSvg.svg" alt="Logo" width={150} height={50} priority
+
+          />
+          {/* <h1 className="text-3xl font-bold">Focusify</h1> */}
           <nav>
             <ul className="flex space-x-6">
               <li>
@@ -30,12 +36,11 @@ const LandingPage: React.FC = () => {
           <p className="text-gray-600 mb-6">
             Transforme seu foco em resultados com o aplicativo que simplifica sua produtividade.
           </p>
-          <a
-            href="#"
-            className="bg-green-500 text-white py-3 px-6 rounded-md shadow-md hover:bg-green-600 transition-all"
-          >
-            Comece Agora
-          </a>
+          <Button className="bg-green-500 text-white py-3 px-6 rounded-md shadow-md hover:bg-green-600 transition-all" asChild>
+            <Link href="/auth/login" >
+              Comece Agora
+            </Link>
+          </Button>
         </div>
       </section>
 
