@@ -6,6 +6,7 @@ import {
   AlertTitle,
 } from "@/components/ui/alert"
 import { Progress } from "../ui/progress";
+import { DialogAllGoals } from "./dialogAllGoals";
 
 interface ICardTaskProps {
   title: string;
@@ -22,11 +23,16 @@ export function CardTask({ title: tittle, progress, startDate, endDate }: ICardT
         <div className="flex justify-between w-full items-center gap-2 sm:justify-start sm:max-w-[350px]">
           <CircleDashed className="h-5 w-5 cursor-pointer text-zinc-500" />
           <h2 className="text-md truncate font-semibold text-zinc-800 max-w-[200px]">{tittle}</h2>
-          <CornerUpLeft className="h-5 w-5 cursor-pointer block  sm:hidden" />
+          <DialogAllGoals>
+            <CornerUpLeft className="h-5 w-5 cursor-pointer block  sm:hidden" />
+          </DialogAllGoals>
+
         </div>
 
         <div className=" flex flex-col w-full items-end h-full sm:w-[250px]">
-          <CornerUpLeft className="h-5 w-5 cursor-pointer hidden sm:block" />
+          <DialogAllGoals>
+            <CornerUpLeft className="h-5 w-5 cursor-pointer hidden sm:block" />
+          </DialogAllGoals>
           <Progress value={progress} className="h-2 mt-2 w-full text-white" />
         </div>
       </AlertTitle>
@@ -34,13 +40,13 @@ export function CardTask({ title: tittle, progress, startDate, endDate }: ICardT
         <p>
           Ínicio:
           <span className="text-green-500">
-            {" "+startDate}
+            {" " + startDate}
           </span>
         </p>
         <p>
           Prazo:
           <span className="text-red-500">
-            {" "+endDate}
+            {" " + endDate}
           </span>
         </p>
       </AlertDescription>
