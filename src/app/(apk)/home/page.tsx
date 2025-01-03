@@ -2,6 +2,7 @@ import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progr
 import { PlusIcon } from "lucide-react";
 import React from "react";
 import { ActiveGoals } from "../goals/activeGoals";
+import Link from "next/link";
 
 const HomeScreen: React.FC = () => {
   return (
@@ -32,9 +33,9 @@ const HomeScreen: React.FC = () => {
 
       <section className="flex-1 flex flex-col justify-between bg-white shadow-md rounded-lg p-4">
         <ActiveGoals />
-        <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+        <Link href={"/goals"} className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
           ver todas
-        </p>
+        </Link>
       </section>
 
       {/* Tips Section */}

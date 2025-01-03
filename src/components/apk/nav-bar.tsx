@@ -119,7 +119,7 @@ export const NavBar = () => {
       </div>
 
       {/* Menu para dispositivos móveis */}
-      <div className="flex lg:hidden">
+      <div className="flex lg:hidden ">
         <Sheet>
           <SheetTrigger>
             <ListMinus size={24} />

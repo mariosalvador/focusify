@@ -41,7 +41,7 @@ export const AlerDialog: React.FC<IAlertProps> = ({ children }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction>Continuar</AlertDialogAction>
+          <AlertDialogAction className="bg-blue-600 hover:bg-blue-700">Continuar</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
