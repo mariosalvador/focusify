@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -9,20 +10,19 @@ import {
 import { Progress } from "../ui/progress";
 import { Button } from "@/components/ui/button";
 import { Trash2, PlusCircle } from "lucide-react";
-import { DayPicker } from "react-day-picker"; 
-import "../../app/(apk)/goals/style.css";
+import Example from "./calendary/calenda";
 
 interface IDialogAllGoalsProps {
   children: React.ReactNode;
 }
 
 export const DialogAllGoals = ({ children }: IDialogAllGoalsProps) => {
-  const completedDays = ["2024-12-20", "2024-12-21"]; // Exemplo de dias concluídos.
+  // const completedDays = ["2024-12-20", "2024-12-21"]; // Exemplo de dias concluídos.
   const startDate = "2024-12-18"; // Data inicial da tarefa.
   const endDate = "2024-12-25"; // Data final da tarefa.
 
   return (
-    <Dialog open={true}>
+    <Dialog >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="min-w-[90%] md:min-w-[85%] min-h-[95%]">
         {/* Header Section */}
@@ -46,22 +46,8 @@ export const DialogAllGoals = ({ children }: IDialogAllGoalsProps) => {
             </section>
 
             {/* Calendar Section */}
-            <div className="w-[300px]">
-              <h3 className="text-sm font-medium mb-2">Calendário</h3>
-              <DayPicker
-        mode="range"
-        selected={{
-          from: new Date(startDate),
-          to: new Date(endDate),
-        }}
-        modifiers={{
-          completed: completedDays.map((date) => new Date(date)),
-        }}
-        modifiersClassNames={{
-          completed: "react-daypicker-day--completed",
-        }}
-        className="react-daypicker"
-      />
+            <div className="w-[280px]">
+              <Example />
             </div>
           </DialogTitle>
         </DialogHeader>
@@ -106,8 +92,11 @@ export const DialogAllGoals = ({ children }: IDialogAllGoalsProps) => {
 
         {/* Footer Section */}
         <DialogFooter>
-          <Button variant="default">Salvar Alterações</Button>
-          <Button variant="secondary">Cancelar</Button>
+          <DialogClose asChild>
+            <Button variant="secondary" >Cancelar</Button>
+          </DialogClose>
+
+          <Button variant="default" className="bg-blue-600 hover:bg-blue-800">Salvar Alterações</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
