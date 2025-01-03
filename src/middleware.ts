@@ -8,8 +8,7 @@ export async function middleware(request: NextRequest) {
 
   const publicRoutes = [
     "/auth/login", "/auth/signup",
-    "/forgot-password", "/terms",
-    "privacy-policy",
+    "/forgot-password",
   ];
   const protectedRoutes = [
     "/admin-feed",
@@ -19,7 +18,6 @@ export async function middleware(request: NextRequest) {
     "/pomodoro",
     "/profile",
     "/settings",
-
   ];
 
   // Verifica se a rota atual está entre as públicas
