@@ -17,9 +17,14 @@ import { DatePicker } from "../ui/datePicker";
 import { format } from "date-fns";
 import { useAuthStore } from "@/module/zustand-store/auth-store";
 import { goalsRoute } from "@/module/services/Api/routes/goals";
+import { validateGoal, ValidationErrors } from "@/module/validation/createGoals_Subtasks";
 
 
-export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
+interface DialogNewGoalsProps {
+  children: React.ReactNode;
+}
+
+export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
   const { user } = useAuthStore();
   const [createGoal, setCreateGoal] = useState<GoalToCreate>({
     title: "",
@@ -29,7 +34,12 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
     subTasks: [],
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleGoalChange = useCallback((key: keyof Goal, value: string | undefined) => {
+    setCreateGoal((prev) => ({ ...prev, [key]: value }));
+  }, []);
 
   const handleAddSubTask = useCallback(() => {
     setCreateGoal((prev) => ({
@@ -67,62 +77,15 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
     []
   );
 
-  const handleGoalChange = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (key: keyof GoalToCreate, value: any) => {
-      setCreateGoal((prev) => ({ ...prev, [key]: value }));
-    },
-    []
-  );
-
-
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    // Validar tarefa principal
-    if (!createGoal.title) newErrors["title"] = "O título é obrigatório.";
-
-    if (createGoal.title.length < 5) {
-      newErrors["title"] = "O título da tarefa deve ser maior que 5 caracteres.";
-    }
-    if (!createGoal.startDate)
-      newErrors["startDate"] = "A data de início é obrigatória.";
-    if (!createGoal.endDate)
-      newErrors["endDate"] = "A data de término é obrigatória.";
-
-    // Validar subtarefas
-    createGoal.subTasks.forEach((task) => {
-      if (!task.title)
-        newErrors[`subTasks.${task.id}.title`] = "O título da subtarefa é obrigatório.";
-
-      if (task.title && task.title.length < 5) {
-        newErrors[`subTasks.${task.id}.title`] = "O título da subtarefa deve ser maior que 5 caracteres.";
-      }
-
-      if (!task.startDate)
-        newErrors[`subTasks.${task.id}.startDate`] = "A data de início é obrigatória.";
-      if (!task.endDate)
-        newErrors[`subTasks.${task.id}.endDate`] = "A data de término é obrigatória.";
-
-      // Validar se as datas das subtarefas estão entre as datas da tarefa principal
-      if (task.startDate && createGoal.startDate && createGoal.endDate && (task.startDate < createGoal.startDate || task.startDate > createGoal.endDate)) {
-        newErrors[`subTasks.${task.id}.startDate`] = "A data de início da subtarefa deve estar entre as datas da tarefa principal.";
-      }
-      if (task.endDate && createGoal.startDate && createGoal.endDate && (task.endDate < createGoal.startDate || task.endDate > createGoal.endDate)) {
-        newErrors[`subTasks.${task.id}.endDate`] = "A data de término da subtarefa deve estar entre as datas da tarefa principal.";
-      }
-    });
-
-    return newErrors;
-  };
-  const handleCreateGoal = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateGoal = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validationErrors = validateForm();
+    const validationErrors = validateGoal(createGoal);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) return;
 
-    // Formatar os dados
+    setIsSubmitting(true);
+
     const formatedGoal = {
       ...createGoal,
       userId: user?.id || "",
@@ -130,13 +93,16 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
       subTasks: createGoal.subTasks.map(({ id, ...task }) => task),
     };
 
-    console.log("Validated Goal:", formatedGoal);
-
-    // Enviar dados ao backend
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await goalsRoute.createGoals(formatedGoal);
-    // console.log("Response:", response);
+    try {
+      await goalsRoute.createGoals(formatedGoal);
+      console.log("Meta criada com sucesso!", formatedGoal);
+    } catch (error) {
+      console.error("Erro ao criar meta:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -246,8 +212,8 @@ export const DialogNewGoals = ({ children }: { children: React.ReactNode }) => {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button variant="secondary" className="bg-blue-600 text-white hover:bg-blue-700" type="submit">
-                Criar Meta
+              <Button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white">
+                {isSubmitting ? "Cadastrando..." : "Criar Meta"}
               </Button>
             </div>
           </div>
