@@ -16,7 +16,7 @@ interface IDialogAllGoalsProps {
   children: React.ReactNode;
 }
 
-export const DialogAllGoals = ({ children }: IDialogAllGoalsProps) => {
+export const DialogGoalsDetails = ({ children }: IDialogAllGoalsProps) => {
   // const completedDays = ["2024-12-20", "2024-12-21"]; // Exemplo de dias concluídos.
   const startDate = "2024-12-18"; // Data inicial da tarefa.
   const endDate = "2024-12-25"; // Data final da tarefa.

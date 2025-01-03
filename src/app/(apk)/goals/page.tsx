@@ -2,6 +2,7 @@ import { DialogNewGoals } from "@/components/apk/dialogNewGoals";
 import React from "react";
 import { ActiveGoals } from "./activeGoals";
 import { CompletedGoals } from "./completedGoals";
+import { DialogPreviewAllGoals } from "@/components/apk/dialogPreviewAllGoals";
 
 const GoalsScreen: React.FC = () => {
   return (
@@ -18,14 +19,17 @@ const GoalsScreen: React.FC = () => {
           </button>
         </DialogNewGoals>
       </header>
- 
+
       {/* Goals List */}
       <section className="flex flex-col justify-between bg-white shadow-md rounded-lg p-4">
-    
+
         <ActiveGoals />
-        <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
-          ver todas
-        </p>
+        <DialogPreviewAllGoals>
+          <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+            ver todas
+          </p>
+        </DialogPreviewAllGoals>
+
       </section>
 
       {/* Completed Goals */}
