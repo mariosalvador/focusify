@@ -8,7 +8,7 @@ const HomeScreen: React.FC = () => {
     <div className="bg-gray-100 min-h-screen flex flex-col px-4  ">
 
       <div className="w-full flex justify-end mb-5">
-        <div className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md">Meta semanal: 60% completa</div>
+        <div className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md">Meta: 0% completa</div>
       </div>
 
       {/* Weekly Progress */}
@@ -16,7 +16,7 @@ const HomeScreen: React.FC = () => {
         <h2 className="text-lg font-semibold text-gray-800">Progresso Semanal</h2>
         <div className="flex justify-center items-center mt-4">
           <AnimatedCircularProgressBar
-            value={60}
+            value={0}
             max={100}
             min={0}
             gaugePrimaryColor="blue"
@@ -24,7 +24,8 @@ const HomeScreen: React.FC = () => {
             className="w-40 h-40"
           />
         </div>
-        <p className="mt-4 text-center text-gray-600">Faltam 2 dias para completar sua meta semanal!</p>
+        <p className="mt-4 text-center text-gray-600">Crie metas, concluas e observe o seu progresso!</p>
+        {/* <p className="mt-4 text-center text-gray-600">Faltam 2 dias para completar sua meta semanal!</p> */}
       </section>
 
       {/* Task List */}

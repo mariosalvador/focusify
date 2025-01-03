@@ -5,6 +5,7 @@ import {
   Home,
   ListMinus,
   MessageSquareQuote,
+  PanelLeftOpen,
   Settings,
   Timer,
 } from "lucide-react";
@@ -35,6 +36,7 @@ function getUserName(fullName: string) {
 export const NavBar = () => {
   const { user } = useAuthStore();
   const pathname = usePathname();
+
   const userData = {
     id: user?.id,
     email: user?.email,
@@ -62,9 +64,8 @@ export const NavBar = () => {
             <Link
               key={href}
               href={href}
-              className={`flex flex-col items-center cursor-pointer ${
-                pathname === href ? "text-blue-600" : "text-gray-600"
-              } hover:text-blue-500`}
+              className={`flex flex-col items-center cursor-pointer ${pathname === href ? "text-blue-600" : "text-gray-600"
+                } hover:text-blue-500`}
             >
               {icon}
               {label}
@@ -94,7 +95,7 @@ export const NavBar = () => {
               </Avatar>
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-40 bg-white shadow-md rounded-md p-2">
+          <PopoverContent className="w-40 hidden lg:block bg-white shadow-md rounded-md p-2">
             <div className="flex flex-col space-y-5">
               <Button
                 variant="ghost"
@@ -107,7 +108,7 @@ export const NavBar = () => {
                 variant="ghost"
                 className="justify-start text-left text-red-600"
                 onClick={() => {
-                 redirect("/auth/logout");
+                  redirect("/auth/logout");
                 }}
               >
                 Logout
@@ -123,7 +124,7 @@ export const NavBar = () => {
           <SheetTrigger>
             <ListMinus size={24} />
           </SheetTrigger>
-           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
           <SheetContent className="flex flex-col items-start">
             <SheetHeader>
@@ -132,30 +133,36 @@ export const NavBar = () => {
                 Utilize o menu abaixo para navegar.
               </SheetDescription>
             </SheetHeader>
-            <div className="flex items-center gap-3 w-full rounded-md shadow-md py-3 px-2">
-              <Avatar>
-                <AvatarImage
-                  src={userData.avatarUrl ? userData.avatarUrl : ""}
-                  alt={`Foto de perfil de ${userData.name}`}
-                />
-                <AvatarFallback>
-                  {userData.name &&
-                    userData.name
-                      .split(" ")
-                      .map((name) => name[0])
-                      .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <span>{getUserName(userData.name)}</span>
+            <div className="flex items-center justify-between gap-3 w-full rounded-md shadow-md py-3 px-2 cursor-pointer"
+            >
+              <Link href="/profile" className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarImage
+                    src={userData.avatarUrl ? userData.avatarUrl : ""}
+                    alt={`Foto de perfil de ${userData.name}`}
+                  />
+                  <AvatarFallback>
+                    {userData.name &&
+                      userData.name
+                        .split(" ")
+                        .map((name) => name[0])
+                        .join("")}
+                  </AvatarFallback>
+                </Avatar>
+                <span>{getUserName(userData.name)}</span>
+              </Link>
+              <Link href="/profile" className="text-blue-600">
+                <PanelLeftOpen size={24} className="text-gray-500 cursor-pointer" />
+              </Link>
+
             </div>
             <ul className="flex flex-col space-y-4">
               {menuItems.map(({ href, label, icon }) => (
                 <Link
                   key={href}
                   href={href}
-                  className={`flex gap-3 items-center cursor-pointer ${
-                    pathname === href ? "text-blue-600" : "text-gray-600"
-                  } hover:text-blue-500`}
+                  className={`flex gap-3 items-center cursor-pointer ${pathname === href ? "text-blue-600" : "text-gray-600"
+                    } hover:text-blue-500`}
                 >
                   {icon}
                   {label}
@@ -168,7 +175,7 @@ export const NavBar = () => {
               </Button>
               <Button
                 onClick={() => {
-                 redirect("/auth/logout");
+                  redirect("/auth/logout");
                 }}
                 className="rounded-md w-full bg-red-600 hover:bg-red-500"
               >
