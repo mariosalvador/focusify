@@ -43,10 +43,10 @@ export default function Login() {
     <div className="flex h-screen items-center justify-center bg-muted px-4">
       <div className="w-full max-w-md p-6 bg-background rounded-lg shadow-md">
         <h1 className="text-3xl font-semibold text-center text-primary mb-6">
-          Welcome to Focusify
+          Bem-vindo ao Focusify
         </h1>
         <p className="text-center text-muted-foreground mb-8">
-          Please sign in to your account
+          Faça login na sua conta
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
@@ -65,7 +65,7 @@ export default function Login() {
           </div>
           <div className="space-y-2">
             <label htmlFor="password" className="block text-sm font-medium text-foreground">
-              Password
+              Senha
             </label>
             <input
               id="password"
@@ -82,20 +82,20 @@ export default function Login() {
             className="w-full py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             disabled={loading}
           >
-            {loading ? "Processing..." : "Sign In"}
+            {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
         <div className="mt-6 text-center text-sm text-muted-foreground">
           <p>
-            Don&apos;t have an account?{" "}
+            Ainda não possui uma conta?{" "}
             <a href="/auth/signup" className="text-primary hover:underline">
-              Sign Up
+              Cadastre-se
             </a>
           </p>
         </div>
         <div className="mt-4 text-center">
           <a href="/forgot-password" className="text-sm text-muted-foreground hover:underline">
-            Forgot your password?
+            Esqueceu a senha?
           </a>
         </div>
       </div>

@@ -1,31 +1,44 @@
 import Link from "next/link";
+import { AlertCircle } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold mb-4">404 - Página não encontrada</h1>
-      <p className="text-2xl mb-8">
-        Desculpe, a página que você  está  procurando não existe.
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50 p-6">
+      {/* Ícone ilustrativo */}
+      <div className="text-primary mb-6">
+        <AlertCircle className="w-16 h-16" />
+      </div>
+
+      {/* Título da página */}
+      <h1 className="text-5xl font-bold text-gray-800 mb-4">404 - Página não encontrada</h1>
+      
+      {/* Mensagem descritiva */}
+      <p className="text-lg text-gray-600 mb-8 text-center max-w-lg">
+        Desculpe, a página que você está procurando não existe ou foi movida. 
+        Use os botões abaixo para navegar para outra área do site.
       </p>
-     
-      <div className="flex flex-col space-y-4 space-x-4">
-        <Link href="/">
-          <div className="py-2 px-4 border-2 border-gray-600 rounded-md hover:bg-gray-600 hover:text-white">
-            Ir para a Landing Page
-          </div>
+      
+      {/* Links de navegação */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Link 
+          href="/" 
+          className="py-2 px-6 bg-primary text-white rounded-md shadow hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50"
+        >
+          Ir para a Landing Page
         </Link>
-        <Link href="/pomodoro">
-          <div className="py-2 px-4 border-2 border-gray-600 rounded-md hover:bg-gray-600 hover:text-white">
-            Ir para a página de pomodoro
-          </div>
+        <Link 
+          href="/pomodoro" 
+          className="py-2 px-6 bg-blue-500 text-white rounded-md shadow hover:bg-blue-500/90 focus:outline-none focus:ring-2 focus:ring-secondary/50"
+        >
+          Ir para a página de Pomodoro
         </Link>
-        <Link href="/auth/login">
-          <div className="py-2 px-4 border-2 border-gray-600 rounded-md hover:bg-gray-600 hover:text-white">
-            Ir para a página de Login
-          </div>
+        <Link 
+          href="/auth/login" 
+          className="py-2 px-6 bg-gray-600 text-white rounded-md shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+        >
+          Ir para a página de Login
         </Link>
       </div>
     </div>
   );
 }
-

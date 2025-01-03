@@ -73,12 +73,12 @@ export default function Signup() {
           Create Your Account
         </h1>
         <p className="text-center text-muted-foreground mb-8">
-          Join Focusify and start your productivity journey!
+          Junte-se ao Focusify e comece sua jornada de produtividade!
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="full-name" className="block text-sm font-medium text-foreground">
-              Full Name
+              Nome completo
             </label>
             <input
               id="full-name"
@@ -92,7 +92,7 @@ export default function Signup() {
           </div>
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-foreground">
-              Email Address
+              Email 
             </label>
             <input
               id="email"
@@ -106,7 +106,7 @@ export default function Signup() {
           </div>
           <div className="space-y-2">
             <label htmlFor="phone" className="block text-sm font-medium text-foreground">
-              Phone Number
+              Telefone
             </label>
             <input
               id="phone"
@@ -120,7 +120,7 @@ export default function Signup() {
           </div>
           <div className="space-y-2">
             <label htmlFor="password" className="block text-sm font-medium text-foreground">
-              Password
+              Senha
             </label>
             <input
               id="password"
@@ -134,7 +134,7 @@ export default function Signup() {
           </div>
           <div className="space-y-2">
             <label htmlFor="confirm-password" className="block text-sm font-medium text-foreground">
-              Confirm Password
+              Confirmar senha
             </label>
             <input
               id="confirm-password"
@@ -156,13 +156,13 @@ export default function Signup() {
               required
             />
             <label htmlFor="terms" className="text-sm text-muted-foreground">
-              I accept the{" "}
+              Aceito os{" "}
               <a href="/terms" className="text-primary hover:underline">
-                Terms and Conditions
+                Termos e Condições
               </a>{" "}
-              and{" "}
+              e{" "}
               <a href="/privacy-policy" className="text-primary hover:underline">
-                Privacy Policy
+                Políticas de Privacidades
               </a>.
             </label>
           </div>
@@ -171,14 +171,14 @@ export default function Signup() {
             className="w-full py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:blue-500 focus:ring-offset-2"
             disabled={loading}
           >
-            {loading ? "Loading..." : "Sign Up"}
+            {loading ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>
         <div className="mt-6 text-center text-sm text-muted-foreground">
           <p>
-            Already have an account?{" "}
+           Já tem uma conta?{" "}
             <a href="/auth/login" className="text-primary hover:underline">
-              Sign In
+              Faça login
             </a>
           </p>
         </div>

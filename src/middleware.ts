@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   const publicRoutes = [
     "/auth/login", "/auth/signup",
-    "/forgot-password",
+    "/auth/forgot-password",
   ];
   const protectedRoutes = [
     "/admin-feed",
