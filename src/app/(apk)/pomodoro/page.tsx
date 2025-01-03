@@ -5,6 +5,7 @@ const PomodoroScreen: React.FC = () => {
   const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
   const [isRunning, setIsRunning] = useState(false);
   const [cycles, setCycles] = useState(0);
+  const [isBreak, setIsBreak] = useState(false); // Track if it's a break
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -19,10 +20,31 @@ const PomodoroScreen: React.FC = () => {
   useEffect(() => {
     if (time === 0 && isRunning) {
       setIsRunning(false);
-      setCycles((prevCycles) => prevCycles + 1);
-      alert("Pomodoro concluído! Faça uma pausa.");
+      if (isBreak) {
+        alert("Pausa concluída! Vamos voltar ao foco.");
+        setTime(25 * 60); // Reset to focus time
+        setIsBreak(false);
+      } else {
+        alertUser();
+        setCycles((prevCycles) => prevCycles + 1);
+        setTime(5 * 60); // Short break time
+        setIsBreak(true);
+      }
     }
-  }, [time, isRunning]);
+  }, [time, isRunning, isBreak]);
+
+  const alertUser = () => {
+    // Play sound alert
+    const audio = new Audio("/alert-sound.mp3");
+    audio.play();
+
+    // Send browser notification
+    if (Notification.permission === "granted") {
+      new Notification("Pomodoro concluído! Hora de uma pausa.");
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission();
+    }
+  };
 
   const toggleTimer = () => {
     setIsRunning(!isRunning);
@@ -31,6 +53,7 @@ const PomodoroScreen: React.FC = () => {
   const resetTimer = () => {
     setIsRunning(false);
     setTime(25 * 60);
+    setIsBreak(false);
   };
 
   const formatTime = (seconds: number) => {
@@ -43,17 +66,19 @@ const PomodoroScreen: React.FC = () => {
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
       <header className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-800">Pomodoro Focus</h1>
-        <p className="text-gray-600">Aumente sua produtividade com ciclos de foco.</p>
+        <p className="text-gray-600">Aumente sua produtividade com ciclos de foco e pausas.</p>
       </header>
 
       <div className="bg-white shadow-lg rounded-lg p-8 flex flex-col items-center">
-        <div className="text-6xl font-bold text-gray-800 mb-4">{formatTime(time)}</div>
+        <div className={`text-6xl font-bold mb-4 ${isBreak ? "text-blue-500" : "text-gray-800"}`}>
+          {formatTime(time)}
+        </div>
+        <p className="text-gray-600 mb-4">{isBreak ? "Pausa" : "Foco"}</p>
         <div className="flex space-x-4">
           <button
             onClick={toggleTimer}
-            className={`py-2 px-6 rounded-md text-white shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all ${
-              isRunning ? "bg-red-500 hover:bg-red-600 focus:ring-red-400" : "bg-green-500 hover:bg-green-600 focus:ring-green-400"
-            }`}
+            className={`py-2 px-6 rounded-md text-white shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all ${isRunning ? "bg-red-500 hover:bg-red-600 focus:ring-red-400" : "bg-green-500 hover:bg-green-600 focus:ring-green-400"
+              }`}
           >
             {isRunning ? "Pausar" : "Iniciar"}
           </button>
@@ -74,34 +99,12 @@ const PomodoroScreen: React.FC = () => {
         </div>
         <div className="flex justify-between mt-2">
           <span className="text-gray-600">Tempo total focado:</span>
-          <span className="text-gray-800 font-bold">{Math.floor((cycles * 25) / 60)} horas {cycles * 25 % 60} minutos</span>
+          <span className="text-gray-800 font-bold">
+            {Math.floor((cycles * 25) / 60)} horas {cycles * 25 % 60} minutos
+          </span>
         </div>
       </section>
 
-      <section className="bg-white shadow-md rounded-lg p-6 mt-6 w-full max-w-md">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Configurações</h2>
-        <div className="flex flex-col space-y-4">
-          <div>
-            <label className="block text-gray-600 font-medium mb-2">Duração do Pomodoro (minutos)</label>
-            <input
-              type="number"
-              className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              value={time / 60}
-              onChange={(e) => setTime(Number(e.target.value) * 60)}
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium mb-2">Notificações</label>
-            <select
-              className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              onChange={(e) => alert(`Notificação configurada: ${e.target.value}`)}
-            >
-              <option value="ativadas">Ativadas</option>
-              <option value="desativadas">Desativadas</option>
-            </select>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

@@ -33,17 +33,70 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+  
+    // Validação de espaços em branco
+    if (!fullName.trim()) {
+      alert("O nome completo não pode conter apenas espaços.");
+      setLoading(false);
+      return;
+    }
+  
+    if (!email.trim()) {
+      alert("O email não pode conter apenas espaços.");
+      setLoading(false);
+      return;
+    }
+  
+    if (!phone.trim()) {
+      alert("O número de telefone não pode conter apenas espaços.");
+      setLoading(false);
+      return;
+    }
+  
+    if (!password.trim() || !confirmPassword.trim()) {
+      alert("A senha e a confirmação de senha não podem conter apenas espaços.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validação de formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Por favor, insira um endereço de email válido.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validação de formato de telefone
+    const phoneRegex = /^[0-9+\-() ]{7,15}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("Por favor, insira um número de telefone válido.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validação de tamanho da senha
+    if (password.length < 6) {
+      alert("A senha deve ter pelo menos 6 caracteres.");
+      setLoading(false);
+      return;
+    }
+  
+    // Validação de senha e confirmação de senha
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert("As senhas não coincidem!");
       setLoading(false);
       return;
     }
+  
+    // Validação de aceite dos termos
     if (!acceptedTerms) {
-      alert("You must accept the terms and conditions to proceed.");
+      alert("Você deve aceitar os termos e condições para prosseguir.");
       setLoading(false);
       return;
     }
-
+  
+    // Enviar os dados
     try {
       const response = await _axios.post("/user/create", formData);
       console.log("Response:", response.data);
@@ -51,17 +104,17 @@ export default function Signup() {
       toast({
         variant: "default",
         title: "Success",
-        description: "User created successfully!",
-      })
+        description: "Usuário criado com sucesso!",
+      });
       resetAllInputs();
       redirect("/auth/login");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Error creating user: ",
-      })
+        title: "Erro",
+        description: "Erro ao criar usuário.",
+      });
       setLoading(false);
     }
   };
@@ -186,4 +239,3 @@ export default function Signup() {
     </div>
   );
 }
-
