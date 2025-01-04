@@ -2,7 +2,6 @@
 
 import { toast } from "@/hooks/use-toast";
 import { _axios } from "@/lib/axios";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Signup() {
@@ -99,7 +98,7 @@ export default function Signup() {
     // Enviar os dados
     try {
       const response = await _axios.post("/user/create", formData);
-      console.log("Response:", response.data);
+      console.log(response);
       setLoading(false);
       toast({
         variant: "default",
@@ -107,7 +106,7 @@ export default function Signup() {
         description: "Usuário criado com sucesso!",
       });
       resetAllInputs();
-      redirect("/auth/login");
+      window.location.href = "/auth/login";
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
