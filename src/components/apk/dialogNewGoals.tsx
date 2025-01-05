@@ -19,13 +19,16 @@ import { useAuthStore } from "@/module/zustand-store/auth-store";
 import { goalsRoute } from "@/module/services/Api/routes/goals";
 import { validateGoal, ValidationErrors } from "@/module/validation/createGoals_Subtasks";
 import { toast } from "@/hooks/use-toast";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 
 
 interface DialogNewGoalsProps {
   children: React.ReactNode;
+  onSuccess ?: () => void
 }
+const queryClient = new QueryClient();
 
-export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
+export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children, onSuccess }) => {
   const { user } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar o modal
 
@@ -39,6 +42,31 @@ export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
 
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const createGoalMutation = useMutation({
+    mutationFn: (goal: GoalToCreate) => goalsRoute.createGoals(goal),
+    
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      toast({
+        title: "Meta criada com sucesso!",
+        description: "Sua meta foi criada com sucesso.",
+        duration: 2000,
+      });
+      setIsOpen(false);
+      setIsSubmitting(false);
+      onSuccess?.(); 
+
+    },
+    onError: () => {
+      setIsSubmitting(false);
+      toast({
+        title: "Erro ao criar meta",
+        description: "Ocorreu um erro ao criar sua meta. Tente novamente mais tarde.",
+        duration: 2000,
+      });
+    },
+  });
 
   const handleGoalChange = useCallback((key: keyof Goal, value: string | undefined) => {
     setCreateGoal((prev) => ({ ...prev, [key]: value }));
@@ -96,25 +124,7 @@ export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
       subTasks: createGoal.subTasks.map(({ id, ...task }) => task),
     };
 
-    try {
-      await goalsRoute.createGoals(formatedGoal);
-      toast({
-        title: "Meta criada com sucesso!",
-        description: "Sua meta foi criada com sucesso.",
-        duration: 2000,
-      });
-
-      setIsOpen(false); // Fecha o modal após o cadastro
-    } catch (error) {
-      console.error("Erro ao criar meta:", error);
-      toast({
-        title: "Erro ao criar meta",
-        description: "Ocorreu um erro ao criar sua meta. Tente novamente mais tarde.",
-        duration: 2000,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    createGoalMutation.mutate(formatedGoal)
   };
 
   return (

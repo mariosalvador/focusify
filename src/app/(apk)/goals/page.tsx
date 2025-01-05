@@ -1,17 +1,21 @@
+"use client";
 import { DialogNewGoals } from "@/components/apk/dialogNewGoals";
-import React from "react";
+import React, { useState } from "react";
 import { ActiveGoals } from "./activeGoals";
 import { CompletedGoals } from "./completedGoals";
 import { DialogPreviewAllGoals } from "@/components/apk/dialogPreviewAllGoals";
 
 const GoalsScreen: React.FC = () => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false); // Estado compartilhado
+
+  const openPreview = () => setIsPreviewOpen(true); // Função para abrir o preview
+  const closePreview = () => setIsPreviewOpen(false); // Função para fechar o preview
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col p-6">
-      {/* Header */}
-      <header className="flex flex-col items-start sm:flex-row sm:items-center justify-between  mb-6">
+      <header className="flex flex-col items-start sm:flex-row sm:items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Minhas Metas</h1>
 
-        <DialogNewGoals>
+        <DialogNewGoals onSuccess={openPreview}>
           <button
             className="bg-green-600/90 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
           >
@@ -20,23 +24,18 @@ const GoalsScreen: React.FC = () => {
         </DialogNewGoals>
       </header>
 
-      {/* Goals List */}
       <section className="flex flex-col justify-between bg-white shadow-md rounded-lg p-4">
-
         <ActiveGoals />
-        <DialogPreviewAllGoals>
-          <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+        <DialogPreviewAllGoals isOpen={isPreviewOpen} onClose={closePreview}>
+          <p className="text-sm text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
             ver todas
           </p>
         </DialogPreviewAllGoals>
-
       </section>
 
-      {/* Completed Goals */}
       <section className="bg-white flex flex-col justify-between shadow-md rounded-lg p-4 mt-6">
         <CompletedGoals />
-
-        <p className="text-sm  text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+        <p className="text-sm text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
           ver todas
         </p>
       </section>

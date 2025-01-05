@@ -7,11 +7,13 @@ import { Button } from "../ui/button";
 
 interface IDialogAllGoalsProps {
   children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export const DialogPreviewAllGoals = ({ children }: IDialogAllGoalsProps) => {
+export const DialogPreviewAllGoals = ({ children, isOpen, onClose }: IDialogAllGoalsProps) => {
   return (
-    <Dialog >
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-full h-full md:h-[85%]  md:w-[600px]">
         {/* Header Section */}
