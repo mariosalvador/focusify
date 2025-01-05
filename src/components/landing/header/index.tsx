@@ -30,5 +30,3 @@ export const Header = () => {
     </header>
   );
 }
-
-//className="bg-gradient-to-r from-green-500 to-blue-500 text-white py-6 shadow-lg"

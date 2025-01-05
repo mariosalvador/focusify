@@ -16,11 +16,9 @@ const LandingPage: React.FC = () => {
     <div className="bg-white relative min-h-screen flex flex-col">
       {/* Header Section */}
       <div className=" absolute top-0 left-0 right-0 z-10">
-
         <Header />
       </div>
 
-      {/* className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white" */}
       {/* Hero Section */}
       <div className="relative flex size-full items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-md">
         <section className=" flex pt-[15%] text-center h-screen z-10 whitespace-pre-wrap text-5xl font-medium tracking-normal ">
@@ -34,10 +32,6 @@ const LandingPage: React.FC = () => {
                 foco total
               </TextAnimate>
             </div>
-
-            {/* <h2 className="text-5xl font-extrabold text-gray-800 mb-6">
-              Conquiste suas metas com <span className="text-green-500">foco total</span>
-            </h2> */}
             <p className="text-gray-600 text-lg mb-8">
               Transforme seu foco em resultados com o aplicativo que simplifica sua produtividade.
             </p>
@@ -64,7 +58,6 @@ const LandingPage: React.FC = () => {
       {/* Features Section */}
       <section id="features" className=" bg-white mb-[20%]">
         <div className="container mx-auto px-6">
-          {/* <h3 className="text-3xl font-bold text-gray-800 text-center mb-12">Funcionalidades</h3> */}
           <div className="z-10 flex min-h-64 items-center justify-center">
             <AnimatedGradientText>
               <span
