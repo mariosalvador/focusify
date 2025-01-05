@@ -13,7 +13,7 @@ export const DialogPreviewAllGoals = ({ children }: IDialogAllGoalsProps) => {
   return (
     <Dialog >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="min-w-[90%] md:min-w-[85%] min-h-[100%] md:min-h-[95%] overflow-y-auto overflow-x-hidden">
+      <DialogContent className="w-full h-full md:h-[85%]  md:w-[600px]">
         {/* Header Section */}
         <DialogHeader>
           <DialogTitle className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
@@ -23,7 +23,9 @@ export const DialogPreviewAllGoals = ({ children }: IDialogAllGoalsProps) => {
         </DialogHeader>
 
         {/* Content Section */}
-        <ActiveGoals all />
+        <div className="overflow-y-auto w-full py-5">
+          <ActiveGoals all />
+        </div>
 
         <DialogFooter>
           <DialogClose asChild>

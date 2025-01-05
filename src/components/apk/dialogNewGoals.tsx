@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import { useAuthStore } from "@/module/zustand-store/auth-store";
 import { goalsRoute } from "@/module/services/Api/routes/goals";
 import { validateGoal, ValidationErrors } from "@/module/validation/createGoals_Subtasks";
+import { toast } from "@/hooks/use-toast";
 
 
 interface DialogNewGoalsProps {
@@ -26,6 +27,8 @@ interface DialogNewGoalsProps {
 
 export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
   const { user } = useAuthStore();
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar o modal
+
   const [createGoal, setCreateGoal] = useState<GoalToCreate>({
     title: "",
     startDate: undefined,
@@ -95,16 +98,27 @@ export const DialogNewGoals: React.FC<DialogNewGoalsProps> = ({ children }) => {
 
     try {
       await goalsRoute.createGoals(formatedGoal);
-      console.log("Meta criada com sucesso!", formatedGoal);
+      toast({
+        title: "Meta criada com sucesso!",
+        description: "Sua meta foi criada com sucesso.",
+        duration: 2000,
+      });
+
+      setIsOpen(false); // Fecha o modal após o cadastro
     } catch (error) {
       console.error("Erro ao criar meta:", error);
+      toast({
+        title: "Erro ao criar meta",
+        description: "Ocorreu um erro ao criar sua meta. Tente novamente mais tarde.",
+        duration: 2000,
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-screen-md w-full h-max max-h-[95%] space-y-6 p-6 overflow-auto">
         <DialogHeader>
