@@ -3,6 +3,7 @@ import { PlusIcon } from "lucide-react";
 import React from "react";
 import { ActiveGoals } from "../goals/activeGoals";
 import Link from "next/link";
+import { AlerDialog } from "@/components/apk/alert-dialog";
 
 const HomeScreen: React.FC = () => {
   return (
@@ -53,7 +54,9 @@ const HomeScreen: React.FC = () => {
         className="fixed bottom-6 right-6 bg-blue-700 text-white p-4 rounded-full size-14 shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
         aria-label="Adicionar nova tarefa"
       >
-        <PlusIcon className="w-6 h-6" />
+        <AlerDialog>
+          <PlusIcon className="w-6 h-6" />
+        </AlerDialog>
       </button>
     </div>
   );

@@ -120,14 +120,14 @@ export default function Signup() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-muted">
-      <div className="w-full max-w-md p-6 bg-background rounded-lg shadow-md">
+      <div className="w-full max-w-md p-6 bg-background rounded-lg shadow-md sm:bg-transparent sm:shadow-none" >
         <h1 className="text-3xl font-semibold text-center text-primary mb-6">
-          Create Your Account
+         Crie sua conta
         </h1>
         <p className="text-center text-muted-foreground mb-8">
           Junte-se ao Focusify e comece sua jornada de produtividade!
         </p>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit}className="w-full max-w-md p-6 bg-background rounded-lg shadow-md space-y-3 ">
           <div className="space-y-2">
             <label htmlFor="full-name" className="block text-sm font-medium text-foreground">
               Nome completo
