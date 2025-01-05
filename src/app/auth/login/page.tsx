@@ -23,15 +23,15 @@ export default function Login() {
 
       toast({
         title: "Success",
-        description: "You have successfully logged in",
+        description: "Login realizado com sucesso",
         duration: 2000,
       });
       window.location.href = "/home";
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error("Error during login process:", error);
       toast({
         title: "Error",
-        description: "Invalid email or password",
+        description: "Email ou senha incorretos",
         duration: 2000,
       });
     } finally {
