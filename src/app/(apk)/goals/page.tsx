@@ -27,7 +27,9 @@ const GoalsScreen: React.FC = () => {
       <section className="flex flex-col justify-between bg-white shadow-md rounded-lg p-4">
         <ActiveGoals />
         <DialogPreviewAllGoals isOpen={isPreviewOpen} onClose={closePreview}>
-          <p className="text-sm text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer">
+          <p className="text-sm text-gray-600 w-full text-center mt-4 hover:underline hover:text-gray-800 cursor-pointer"
+          onClick={openPreview}
+          >
             ver todas
           </p>
         </DialogPreviewAllGoals>

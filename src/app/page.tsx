@@ -13,7 +13,7 @@ import Marquee from "@/components/ui/marquee";
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="bg-white relative min-h-screen flex flex-col">
+    <div className="bg-white relative min-h-screen flex flex-col overflow-x-hidden ">
       {/* Header Section */}
       <div className=" absolute top-0 left-0 right-0 z-10">
         <Header />
@@ -23,8 +23,8 @@ const LandingPage: React.FC = () => {
       <div className="relative flex size-full items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-md">
         <section className=" flex pt-[15%] text-center h-screen z-10 whitespace-pre-wrap text-5xl font-medium tracking-normal ">
           <div className="container mx-auto px-6">
-            <div className="flex">
-              <TextAnimate animation="blurInUp" by="character" className="text-5xl font-extrabold text-gray-800 mb-6">
+            <div className="flex flex-col">
+              <TextAnimate animation="blurInUp" by="character" className="text-xl md:text-5xl text-wrap font-extrabold text-gray-800 mb-6">
                 Conquiste suas metas com
               </TextAnimate>
               <p> </p>
@@ -56,7 +56,7 @@ const LandingPage: React.FC = () => {
 
 
       {/* Features Section */}
-      <section id="features" className=" bg-white mb-[20%]">
+      <section id="features" className=" bg-white mb-[20%] px-20 ">
         <div className="container mx-auto px-6">
           <div className="z-10 flex min-h-64 items-center justify-center">
             <AnimatedGradientText>
@@ -72,12 +72,12 @@ const LandingPage: React.FC = () => {
 
           <div
             className={
-              "flex h-[400px] w-full flex-col gap-4 lg:h-[200px] lg:flex-row lg:gap-8 lg:justify-center lg:items-center"
+              "flex h-[400px] w-full flex-col items-center mx-5 gap-4 lg:h-[200px] lg:flex-row lg:gap-8 lg:justify-center lg:items-center"
             }
           >
             <BlurFade delay={0.25 + 5 * 0.05} inView direction="down" className=" w-[350px] h-full">
               <MagicCard
-                className="cursor-pointer w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
+                className="cursor-pointer w-[300px] md:w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
                 gradientColor={"#D9D9D955"}
               >
                 <h4 className="text-xl  font-semibold text-green-500 mb-2">Metas Personalizáveis</h4>
@@ -87,7 +87,7 @@ const LandingPage: React.FC = () => {
 
             <BlurFade delay={0.25 + 1 * 0.05} inView direction="down" className=" w-[350px] h-full">
               <MagicCard
-                className="cursor-pointer   w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
+                className="cursor-pointer w-[300px]  md:w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
                 gradientColor={"#D9D9D955"}
               >
                 <h4 className="text-xl  w-full font-semibold text-blue-500 mb-2">Pomodoro Integrado</h4>
@@ -96,7 +96,7 @@ const LandingPage: React.FC = () => {
             </BlurFade>
             <BlurFade delay={0.25 + 1 * 0.05} inView direction="down" className=" w-[350px] h-full">
               <MagicCard
-                className="cursor-pointer   w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
+                className="cursor-pointer  w-[300px]  md:w-[350px] flex-col text-center items-center justify-center whitespace-nowrap shadow-2xl px-2"
                 gradientColor={"#D9D9D955"}
               >
                 <h4 className="text-xl font-semibold text-yellow-500 mb-2">Feedback de Progresso</h4>
@@ -176,8 +176,8 @@ const LandingPage: React.FC = () => {
 
       {/* Footer */}
       <footer className=" text-black py-6 text-center">
-        <div className="border-t border-gray-200 py-4 mx-[20%]"></div>
-        <p>&copy; 2024 Focusify. Todos os direitos reservados.</p>
+        <div className="border-t border-gray-200 py-4 mx-[20%] text-wrap"></div>
+        <p className="text-sm md:text-md text-center text-wrap">&copy; 2024 Focusify. Todos os direitos reservados.</p>
       </footer>
     </div>
   );
